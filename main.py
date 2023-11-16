@@ -6,11 +6,18 @@ def congratulate_user():
     print("=============================")
     print(f"= Congratulations! You won! your words: {guesses} =")
     print("=============================")
-
-
+    
 
 def is_game_over():
     return guessed == WORDS_TO_WIN or errors == ERRORS_TO_LOSE
+
+
+def game_over_message():
+    print("Game over! Better luck next time!")
+
+
+def is_word_already_guessed(word):
+    return word in guesses
 
 
 guessed = 0
@@ -31,6 +38,11 @@ print(f"Your word is '{word}'")
 
 while not is_game_over():
     guess = input("Your next take: ")
+
+    if is_word_already_guessed(guess):
+        print("You already guessed that word. Try another one.")
+        continue
+        
     if guess in full_list:
         guessed += 1
         guesses.append(guess)
@@ -41,3 +53,6 @@ while not is_game_over():
     else:
         errors += 1
         print(f"Oops :( No such word, you have {ERRORS_TO_LOSE - errors} lives more")
+
+if errors == ERRORS_TO_LOSE:
+game_over_message()
